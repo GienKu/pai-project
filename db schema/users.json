@@ -1,0 +1,18 @@
+[{
+  "_id": {
+    "$oid": "671a27e7556075dd0541c07a"
+  },
+  "username": "",
+  "email": "",
+  "password": "",
+  "role": 0,
+  "storageLimit": 0,
+  "usedStorage": 0,
+  "maxUploadSize": 0,
+  "createdAt": {
+    "$date": "1970-01-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "1970-01-01T00:00:00.000Z"
+  }
+}]

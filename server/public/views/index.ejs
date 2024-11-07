@@ -16,23 +16,6 @@
       <input type="password" id="password" name="password" required /><br /><br />
       <button type="submit">Register</button>
     </form>
-    <script>
-      document.getElementById("registrationForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const username = document.getElementById("username").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        await fetch("http://localhost:3000/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, email, password }),
-        });
-      });
-    </script>
 
     <h1>User Login</h1>
     <form id="loginForm">
@@ -42,29 +25,5 @@
       <input type="password" id="loginPassword" name="password" required /><br /><br />
       <button type="submit">Login</button>
     </form>
-
-    <script>
-      document.getElementById("loginForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
-
-        await fetch("http://localhost:3000/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }).then((response) => {
-          if (response.ok) {
-            console.log("User registration successful!");
-            window.location.href = "/cloud";
-          } else {
-            alert("User registration failed!");
-          }
-        });
-      });
-    </script>
   </body>
 </html>

@@ -19,6 +19,7 @@ app.use(cors());
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(Deno.cwd(), 'public/views'));
+app.use(express.static(path.join(Deno.cwd(), 'public')));
 
 app.use(userRoutes);
 app.use(clientRoutes);

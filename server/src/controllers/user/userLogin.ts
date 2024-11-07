@@ -38,10 +38,8 @@ export const userLoginController = async (
       tokenType: 'user-requests',
     });
 
-    res.cookie('auth_token', token, { httpOnly: true, secure: true });
-    res.status(200).json({
-      message: 'Zalogowano pomyślnie',
-    });
+    res.cookie('auth_token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+    res.redirect('/cloud');
   } catch (error: any) {
     next(error);
   }

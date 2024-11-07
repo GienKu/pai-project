@@ -39,7 +39,9 @@ export const userLoginController = async (
     });
 
     res.cookie('auth_token', token, { httpOnly: true, secure: true });
-    res.redirect('/cloud');
+    res.status(200).json({
+      message: 'Zalogowano pomyślnie',
+    });
   } catch (error: any) {
     next(error);
   }

@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// passportConfig(app);
+passportConfig(app);
 
 // Set the view engine to ejs
 app.set('view engine', 'ejs');

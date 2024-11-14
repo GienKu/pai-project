@@ -15,6 +15,11 @@ export const ResetPasswordSchema = v.object({
   email: v.pipe(v.string(), v.email()),
 });
 
+export const NewPasswordSchema = v.object({
+  password: v.pipe(v.string(), v.minLength(8)),
+});
+
 export type LoginData = v.InferOutput<typeof LoginSchema>;
 export type RegisterData = v.InferOutput<typeof RegisterSchema>;
 export type ResetPasswordData = v.InferOutput<typeof ResetPasswordSchema>;
+export type NewPasswordData = v.InferOutput<typeof NewPasswordSchema>;

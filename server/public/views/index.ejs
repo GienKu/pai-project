@@ -1,67 +1,224 @@
 <!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <title>Chmura PAI</title>
+    <base href="/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent" />
+    <meta name="theme-color" content="#00b6ed" />
+    <meta name="author" content="PSZ,KG,JS" />
+    <meta name="copyright" content="Chmura, PAI" />
+    <meta name="keywords" content="Chmura, PAI" />
+    <meta name="robots" content="nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="never" />
+    <meta http-equiv="expires" content="43200" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Chmura PAI" />
+    <meta name="title" content="Chmura PAI" />
+    <meta property="og:title" content="Chmura PAI" />
+    <meta property="twitter:title" content="Chmura PAI" />
+    <meta itemprop="name" content="Chmura PAI" />
+    <meta property="og:type" content="website" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="http://localhost:3000/" />
+    <meta property="twitter:url" content="http://localhost:3000/" />
+    <meta property="image" content="assets/banner.jpg" />
+    <meta property="og:image" content="assets/banner.jpg" />
+    <meta property="twitter:image" content="assets/banner.jpg" />
+    <meta name="description" content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="og:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="twitter:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      itemprop="description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="apple-mobile-web-app-title" content="Chmura PAI" />
+    <meta name="application-name" content="Chmura PAI" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+    <link id="canonical" rel="canonical" href="http://localhost:3000/" />
+    <meta name="browsermode" content="application" />
+    <link rel="preload" href="styles/main.css" as="style" onload="this.rel='stylesheet'" />
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+    <script defer type="module" src="script/index.js"></script>
+  </head>
+  <body class="inter-regular">
+    <div class="preloader">
+      <div class="preloader-circle"></div>
+    </div>
+    <div class="novalid" aria-live="polite"></div>
+    <header>
+      <div>
+        <h1 class="hidden-accessible">Chmura PAI</h1>
+        <div class="file-upload">
+          <label for="file" id="file-label">Upuść plik</label>
+          <input
+            type="file"
+            name="file[]"
+            id="file"
+            data-file="value"
+            aria-labelledby="file-label"
+            disabled />
+        </div>
+      </div>
+      <div aria-label="User authentication">
+        <button class="sign-in-button" aria-label="Sign in for returning users">Zaloguj się</button>
+        <button class="sign-up-button" aria-label="Sign up for new users">Zarejestruj się</button>
+      </div>
+    </header>
+    <section>
+      <form class="sign-in" autocomplete="on" method="POST" action="" aria-labelledby="signInForm">
+        <h2 id="signInForm">Zaloguj się</h2>
+        <label for="sign-in-email" id="sign-in-email-label" class="hidden-accessible">Email</label>
+        <input
+          type="text"
+          id="sign-in-email"
+          name="sign-in-email"
+          placeholder="Email"
+          required
+          aria-required="true"
+          aria-labelledby="sign-in-email-label" />
+        <label for="sign-in-password" id="sign-in-password-label" class="hidden-accessible"
+          >Hasło</label
+        >
+        <input
+          type="password"
+          id="sign-in-password"
+          name="sign-in-password"
+          placeholder="Hasło"
+          required
+          aria-required="true"
+          aria-labelledby="sign-in-password-label" />
+        <div>
+          <a class="forgot-password-button" role="button" aria-label="Nawiguj do odzyskiwania hasła"
+            >Zapomniałem hasła</a
+          >
+        </div>
+        <input type="submit" value="Zaloguj się" aria-label="Zaloguj się" />
+        <span
+          >Nie masz konta?
+          <a class="sign-up-button" role="button" aria-label="Nawiguj do rejestracji"
+            >Zarejestruj się</a
+          ></span
+        >
+      </form>
+      <form class="sign-up" method="POST" action="" aria-labelledby="signUpForm">
+        <h2 id="signUpForm">Zarejestruj się</h2>
+        <label for="sign-up-email" id="sign-up-email-label" class="hidden-accessible">Email</label>
+        <input
+          type="text"
+          id="sign-up-email"
+          name="sign-up-email"
+          placeholder="Email"
+          required
+          aria-required="true"
+          aria-labelledby="sign-up-email-label" />
+        <label for="sign-up-password" id="sign-up-password-label" class="hidden-accessible"
+          >Hasło</label
+        >
+        <input
+          type="password"
+          id="sign-up-password"
+          name="sign-up-password"
+          placeholder="Hasło"
+          required
+          aria-required="true"
+          aria-labelledby="sign-up-password-label" />
+        <label
+          for="sign-up-password-repeat"
+          id="sign-up-password-repeat-label"
+          class="hidden-accessible"
+          >Powtórz hasło</label
+        >
+        <input
+          type="password"
+          id="sign-up-password-repeat"
+          name="sign-up-password-repeat"
+          placeholder="Powtórz hasło"
+          required
+          aria-required="true"
+          aria-labelledby="sign-up-password-repeat-label" />
+        <input type="submit" value="Zarejestruj" aria-label="Zarejestruj" />
+        <span
+          >Mam już konto
+          <a class="sign-in-button" role="button" aria-label="Nawiguj do logowania"
+            >Zaloguj się</a
+          ></span
+        >
+      </form>
+      <form class="forgot-password" method="POST" action="" aria-labelledby="forgotPasswordForm">
+        <h2 id="forgotPasswordForm">Zmień hasło</h2>
+        <label
+          for="forgot-password-email"
+          id="forgot-password-email-label"
+          class="hidden-accessible"
+          >Email</label
+        >
+        <input
+          type="text"
+          id="forgot-password-email"
+          name="forgot-password-email"
+          placeholder="Email"
+          required
+          aria-required="true"
+          aria-labelledby="forgot-password-email-label" />
+        <input type="submit" value="Wyślij email" aria-label="Wyślij email" />
+        <span
+          >Nie masz konta?
+          <a class="sign-in-button" role="button" aria-label="Nawiguj do logowania"
+            >Zaloguj się</a
+          ></span
+        >
+      </form>
+    </section>
+    <footer>
+      <div>
+        <p>&copy; Projekt zespołowy PAI</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Registration</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>User Registration</h1>
     <form id="registrationForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Register</button>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required /><br /><br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required /><br /><br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required /><br /><br />
+      <button type="submit">Register</button>
     </form>
-
-    <script>
-        document.getElementById('registrationForm').addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const response = await fetch('http://localhost:3000/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, email, password }),
-            });
-
-            const result = await response.json();
-            console.log(result);
-        });
-    </script>
 
     <h1>User Login</h1>
     <form id="loginForm">
-        <label for="loginEmail">Email:</label>
-        <input type="email" id="loginEmail" name="email" required><br><br>
-        <label for="loginPassword">Password:</label>
-        <input type="password" id="loginPassword" name="password" required><br><br>
-        <button type="submit">Login</button>
+      <label for="loginEmail">Email:</label>
+      <input type="email" id="loginEmail" name="email" required /><br /><br />
+      <label for="loginPassword">Password:</label>
+      <input type="password" id="loginPassword" name="password" required /><br /><br />
+      <button type="submit">Login</button>
     </form>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async (event) => {
-                event.preventDefault();
-
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-
-                const response = await fetch('http://localhost:3000/api/login', {
-                        method: 'POST',
-                        headers: {
-                                'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password }),
-                });
-        });
-    </script>
-</body>
-</html>
+  </body>
+</html> -->

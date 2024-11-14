@@ -5,3 +5,4 @@ logs/
 .idea/
 node_modules/
 .DS_Store
+server/.DS_Store

@@ -1,14 +1,14 @@
 // @deno-types="@types/jsonwebtoken"
 import { JwtPayload } from 'jsonwebtoken';
+import { type UserType } from '../db/models/User.ts';
 
 declare global {
   interface ApiResponse<T> {
     data?: T;
     message: string;
-    status: number;
   }
 
-  type Role = Number;
+  type Role = number;
 
   interface CustomJwtPayload extends JwtPayload {
     role: Role;
@@ -19,5 +19,7 @@ declare global {
     interface Request {
       jwtPayload?: CustomJwtPayload;
     }
+
+    interface User extends UserType {}
   }
 }

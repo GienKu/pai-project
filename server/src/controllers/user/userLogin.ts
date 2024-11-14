@@ -39,7 +39,7 @@ export const userLoginController = async (
     });
 
     res.cookie('auth_token', token, { httpOnly: true, secure: true });
-    res.redirect('/cloud');
+    res.status(200).redirect('/cloud');
   } catch (error: any) {
     next(error);
   }

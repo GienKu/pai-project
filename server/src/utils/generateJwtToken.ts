@@ -26,7 +26,9 @@ export const generateJwtToken = ({ id, role, tokenType, exp }: JwtClaims) => {
     iat: iat,
   };
 
+  
   const token = jwt.sign(jwtPayload, JWT_PRIV_KEY, {
+    algorithm: 'RS256',
     expiresIn: expiresIn,
   });
 

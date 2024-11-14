@@ -15,23 +15,17 @@ export const userLoginController = async (
   try {
     const { email, password } = vParse(LoginSchema, req.body);
 
-    // TODO FINDING USER IN DATABASE
-
+    // find user in db
     const user = await User.findOne({
       email: email,
     }).exec();
 
-    if (!user) {
-      throw new AppError('Nieprawidłowe dane logowania', 401);
+    // if user not found or password is not valid
+    if (!user || !(await verifyPassword(password, user.password))) {
+      throw new AppError('Email or password is not valid', 401);
     }
 
-    const isPasswordValid = await verifyPassword(password, user.password);
-
-    if (!(await verifyPassword(password, user.password))) {
-      throw new AppError('Nieprawidłowe dane logowania', 401);
-    }
-
-    // CREATING TOKEN
+    // create access token
     const token = generateJwtToken({
       id: user.id,
       role: user.role,

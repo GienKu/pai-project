@@ -42,3 +42,24 @@ export const sendResetPasswordLink = async (
     throw new AppError('Error sending email', 500);
   }
 };
+export const sendEmailConfirmationLink = async (
+  userEmail: string,
+  link: string
+) => {
+  try {
+    const html = `<p>Click <a href="${link}">here</a> to confirm your email address.</p>`;
+    const text = `Click the following link to confirm your email address: ${link}`;
+
+    const info = await transporter.sendMail({
+      from: `"Cloud Email Confirmation" ${SMTP_USER}`,
+      to: userEmail,
+      subject: 'Email Confirmation',
+      html,
+      text,
+    });
+
+    return info;
+  } catch (err) {
+    throw new AppError('Error sending email', 500);
+  }
+};

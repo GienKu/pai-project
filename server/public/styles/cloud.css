@@ -1,0 +1,191 @@
+@import "./main.css";
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+body {
+  background-color: rgb(var(--color-main));
+  color: rgb(var(--color-secondary));
+  font-size: 1em;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+nav {
+  background-color: rgba(var(--color-main), 0.8);
+  box-shadow: 0 0 1em 0 rgba(var(--color-accent), 0.25);
+  font-size: 1em;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+nav a {
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgb(var(--color-secondary));
+  text-decoration: none;
+  padding: 0.5em 1em;
+  display: inline-block;
+}
+
+main {
+  background-color: rgba(var(--color-accent), 0.08);
+  width: 100%;
+  height: 100%;
+  padding: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+main section {
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 2.5em;
+  border-bottom-right-radius: 2.5em;
+  background-color: rgba(var(--color-main), 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  overflow: hidden;
+  overflow-y: auto;
+}
+main section .info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.1em 0;
+  width: 20%;
+  height: 100%;
+}
+main section .info ul {
+  list-style: none;
+  padding: 0;
+}
+main section .info ul li {
+  margin: 0.5em 0;
+}
+main section .info ul li:first-of-type {
+  font-weight: 700;
+}
+main section .info-upload {
+  width: 100%;
+  height: 100%;
+}
+main section .info-upload .input {
+  max-width: 100%;
+  display: none;
+}
+main section .info-upload .labelFile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-right: 0.1em dashed rgba(var(--color-accent), 0.25);
+  align-items: center;
+  text-align: center;
+  color: rgba(var(--color-secondary), 0.5);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+main section .files {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(var(--color-accent), 0.05), rgba(var(--color-main), 0.5));
+}
+main section .files-list {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  list-style: none;
+}
+main section .files-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+main section .files-list-item.dir {
+  cursor: pointer;
+}
+main section .files-list-item:hover {
+  background-color: rgba(var(--color-accent), 0.01);
+}
+main section .files-list-item ul {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-bottom: 0.1em solid rgba(var(--color-accent), 0.25);
+}
+main section .files-list-item ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+}
+main section .files-list-item ul li button {
+  background-color: rgba(var(--color-accent), 0.5);
+  color: rgb(var(--color-main));
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+main section .files-list-item ul li button:hover {
+  background-color: rgba(var(--color-accent), 0.75);
+}
+main section .files-list-item ul li button svg {
+  stroke: rgb(var(--color-main));
+  width: 1.2em;
+  height: 1.2em;
+}
+main section .without-info {
+  width: 80%;
+}
+main section .without-info + .file_info {
+  display: none;
+}
+main section .file_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2em;
+  width: 20%;
+  height: 100%;
+  border-left: 0.1em solid rgba(var(--color-accent), 0.25);
+}
+main section .file_info ul {
+  list-style: none;
+  padding: 0;
+}
+main section .file_info ul li {
+  margin: 0.5em 0;
+}
+main section .file_info ul li:first-of-type {
+  font-weight: 700;
+}/*# sourceMappingURL=cloud.css.map */

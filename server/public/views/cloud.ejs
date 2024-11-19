@@ -1,14 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cloud EJS Page</title>
-</head>
-<body>
-    <h1>Welcome</h1>
-    <p>This is a sample EJS file.</p>
-
-    </ul>
-</body>
+  <head>
+    <title>Chmura PAI</title>
+    <base href="/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent" />
+    <meta name="theme-color" content="#00b6ed" />
+    <meta name="author" content="PSZ,KG,JS" />
+    <meta name="copyright" content="Chmura, PAI" />
+    <meta name="keywords" content="Chmura, PAI" />
+    <meta name="robots" content="nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="never" />
+    <meta http-equiv="expires" content="43200" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Chmura PAI" />
+    <meta name="title" content="Chmura PAI" />
+    <meta property="og:title" content="Chmura PAI" />
+    <meta property="twitter:title" content="Chmura PAI" />
+    <meta itemprop="name" content="Chmura PAI" />
+    <meta property="og:type" content="website" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="http://localhost:3000/" />
+    <meta property="twitter:url" content="http://localhost:3000/" />
+    <meta property="image" content="assets/banner.jpg" />
+    <meta property="og:image" content="assets/banner.jpg" />
+    <meta property="twitter:image" content="assets/banner.jpg" />
+    <meta name="description" content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="og:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="twitter:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      itemprop="description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="apple-mobile-web-app-title" content="Chmura PAI" />
+    <meta name="application-name" content="Chmura PAI" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+    <link id="canonical" rel="canonical" href="http://localhost:3000/" />
+    <meta name="browsermode" content="application" />
+    <link rel="preload" href="styles/main.css" as="style" onload="this.rel='stylesheet'" />
+    <link rel="stylesheet" type="text/css" href="styles/cloud.css" />
+    <script defer type="module" src="script/cloud.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a href="/logout">Wyloguj</a>
+    </nav>
+    <main>
+      <h1 class="hidden-accessible">Cloud</h1>
+      <section>
+        <div class="info">
+          <div class="info-upload">
+            <label for="file" class="labelFile"
+              ><span></span>
+              <p>drag and drop your file here or click to select a file!</p></label
+            >
+            <input class="input" name="text" id="file" type="file" />
+          </div>
+        </div>
+        <div class="files without-info">
+          <ul class="files-list">
+            <% files.forEach(file => { %> <% if (file.type === 'dir') { %>
+            <li class="files-list-item dir">
+              <ul>
+                <li><%= file.name %></li>
+              </ul>
+            </li>
+            <% } else { %>
+            <li class="files-list-item">
+              <ul>
+                <li><%= file.name %>.<%= file.type %></li>
+                <li><%= file.size %></li>
+                <li><%= file.date %></li>
+                <li>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                    </svg>
+                  </button>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                  </button>
+                  <button>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <% } %> <% }); %>
+          </ul>
+        </div>
+        <div class="file_info">
+          <ul>
+            <li>AFTER FILE CLICK:</li>
+            <li>INFO ABOUT FILE</li>
+            <li>DEFAULT HIDDEN</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

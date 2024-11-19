@@ -4,16 +4,29 @@ import { auth } from '../../middlewares/handleAuth.ts';
 
 export const clientRoutes = express.Router();
 
+//? admin@admin.com
+//? ZAQ!2wsx
+//? KONTO ADMINA DO TESTÓW
+//! TODO `/cloud` route for user / admin dashboard <<< FIRST PRIORITY
+// TODO route for block / unblock user UPDATE `/admin/block/:id` { blocked: boolean } :id = user id
+// TODO route for change user space UPDATE `/admin/space/:id` { space: number } :id = user id
+// TODO route for delete user DELETE `/admin/delete/:id` :id = user id
+// TODO logout route POST `/logout`
+
 clientRoutes.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-clientRoutes.get('/cloud', auth(), (req, res) => {
+clientRoutes.get('/cloud', auth(), async (req, res) => {
   const user = {
     username: req.user?.username || 'Guest',
     email: req.user?.email || null,
     role: req.user?.role || process.env.ROLE_GUEST
   }
+
+  // TODO if user.role admin get all users to `users` variable
+  let users = null;
+  if (user.role == process.env.ROLE_ADMIN) { }
 
   // TODO get files from database
   const files: {
@@ -42,7 +55,8 @@ clientRoutes.get('/cloud', auth(), (req, res) => {
 
   res.render('cloud.ejs', {
     user: user,
-    files: files || []
+    files: files || [],
+    users: users || []
   });
 });
 

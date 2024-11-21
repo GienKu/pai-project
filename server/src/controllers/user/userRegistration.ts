@@ -30,6 +30,7 @@ export const userRegistration = async (
     // create user
     const user = await new User({
       username,
+      role: 1,
       email,
       password: await hashPassword(password),
     }).save();
@@ -54,16 +55,13 @@ export const userRegistration = async (
       `${BASE_URL}/api/verify-email?token=${emailToken}`
     );
 
-    const response: ApiResponse<void> = {
-      message: 'Successful registration',
-    };
-
     res.cookie('auth_token', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
     });
-    res.status(200).json(response);
+    
+    return res.redirect('/cloud/user');
   } catch (error: any) {
     next(error);
   }

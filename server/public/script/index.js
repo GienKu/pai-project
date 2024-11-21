@@ -111,12 +111,15 @@ const formFunction = (formClass, apiEndpoint, getRequestBody, onSuccessRedirect)
         return;
       }
       //* Redirect on success
-      window.location.href = onSuccessRedirect;
+      // res.redirect will set response.url so after successful login/registration user will be redirected
+      // window.location.href = onSuccessRedirect; 
+      window.location.href = response.url; 
       return Promise.resolve();
     } catch (err) {
       console.error(err);
       submitOn(submit, submitOldValue);
-      window.location.href = "/";
+      // show err to user instead reload page
+      // window.location.href = "/";
     }
   });
   return Promise.resolve();

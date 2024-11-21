@@ -1,0 +1,12 @@
+### REST API client for testing
+### Delete User by ID
+DELETE http://localhost:3000/api/admin/delete/673f9823e9c7b8b816687024
+
+### Block user by ID
+
+PATCH http://localhost:3000/api/admin/update/673f9946ec6ed26e7fbf7148
+Content-Type: application/json
+
+{
+    "isBlocked": false
+}

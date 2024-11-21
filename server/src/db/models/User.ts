@@ -12,6 +12,7 @@ interface IUser extends Document {
   verifiedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
+  isBlocked: boolean;
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -25,6 +26,7 @@ const UserSchema: Schema<IUser> = new Schema({
   verifiedAt: { type: Date, default: null },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  isBlocked: { type: Boolean, required: true, default: false },
 });
 
 const User = mongoose.model<IUser>('User', UserSchema);

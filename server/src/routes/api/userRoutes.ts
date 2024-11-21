@@ -8,10 +8,18 @@ import { updateUserPassword } from '../../controllers/user/updateUserPassword.ts
 import { auth } from '../../middlewares/handleAuth.ts';
 import { linkAuth } from '../../middlewares/handleLinkAuth.ts';
 import { verifyUserEmail } from '../../controllers/user/verifyUserEmail.ts';
+import { deleteUser } from '../../controllers/user/deleteUser.ts';
+import { updateUser } from '../../controllers/user/updateUser.ts';
 
 export const userRoutes = express.Router();
 
 userRoutes.post('/api/login', userLoginController);
+
+userRoutes.post('/api/register', userRegistration);
+
+userRoutes.patch('/api/admin/update/:id', auth([2]), updateUser);
+
+userRoutes.delete('/api/admin/delete/:id', auth([2]), deleteUser);
 
 userRoutes.post('/api/register', userRegistration);
 

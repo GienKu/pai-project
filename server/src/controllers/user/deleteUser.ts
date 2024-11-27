@@ -15,11 +15,11 @@ export const deleteUser = async (
       _id: req.params.id
     }).exec();
 
-    if(!user) {
-        throw new AppError("User not found", 404)
+    if (!user) {
+      throw new AppError("User not found", 404)
     }
-    
-    res.status(200)
+
+    res.status(200).send();
   } catch (error: any) {
     next(error);
   }

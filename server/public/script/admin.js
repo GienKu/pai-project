@@ -1,8 +1,11 @@
+import { logout } from "./logout.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   try {
     blockUser();
     changeSpace();
     deleteUser();
+    logout();
   } catch (err) {
     console.error(err);
   }
@@ -19,14 +22,12 @@ const blockUser = () => {
       const confirmed = confirm("Chcesz zablokować użytkownika?");
       if (!confirmed) return;
       const userId = e.target.dataset.id;
-      const res = await fetch(`/admin/block/${userId}`, {
-        method: "UPDATE",
+      const res = await fetch(`/api/admin/update/${userId}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isBlocked: true }),
       });
-      const data = await res.json();
-      if (data.status === "success") {
-        location.reload();
-      }
+      if (res.status === 200) alert("Użytkownik został zablokowany");
     });
   });
 };
@@ -39,17 +40,17 @@ const changeSpace = () => {
     const newButton = btn.cloneNode(true);
     btn.replaceWith(newButton);
     newButton.addEventListener("click", async (e) => {
-      //TODO : change space - add modal to confirm
+      //TODO MODAL
       return;
       const userId = e.target.dataset.id;
       const newSpace = e.target.dataset.space;
-      const res = await fetch(`/admin/space/${userId}`, {
-        method: "UPDATE",
+      const res = await fetch(`/api/admin/update/${userId}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ space: newSpace }),
+        body: JSON.stringify({ storageLimit: newSpace }),
       });
-      const data = await res.json();
-      if (data.status === "success") {
+      if (res.status === 200) {
+        alert("Przestrzeń użytkownika została zmieniona");
         location.reload();
       }
     });
@@ -67,13 +68,14 @@ const deleteUser = () => {
       const confirmed = confirm("Chcesz usunąć użytkownika?");
       if (!confirmed) return;
       const userId = e.target.dataset.id;
-      const res = await fetch(`/admin/delete/${userId}`, {
+      const res = await fetch(`api/admin/delete/${userId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      const data = await res.json();
-      if (data.status === "success") {
-        location.reload();
+      if (res.status === 200) {
+        alert("Użytkownik został usunięty");
+        const userItem = e.target.closest(".user-list-item");
+        userItem.remove();
       }
     });
   });

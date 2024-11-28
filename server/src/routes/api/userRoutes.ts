@@ -23,6 +23,11 @@ userRoutes.delete('/api/admin/delete/:id', auth([2]), deleteUser);
 
 userRoutes.post('/api/register', userRegistration);
 
+userRoutes.post('/api/logout', auth(), (req, res) => {
+  res.clearCookie('auth_token');
+  res.redirect('/');
+});
+
 userRoutes.get('/api/verify-email', linkAuth, verifyUserEmail);
 
 userRoutes.post('/api/send-password-reset-link', sendPasswordResetLink);

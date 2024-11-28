@@ -35,7 +35,7 @@ export const updateUser = async (
       throw new AppError('User not found', 404);
     }
 
-    res.status(200);
+    res.status(200).send();
   } catch (error: any) {
     next(error);
   }

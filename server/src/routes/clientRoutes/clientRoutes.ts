@@ -37,15 +37,7 @@ const ROLE_USER = Number(Deno.env.get('ROLE_USER'));
 //? admin@admin.com
 //? ZAQ!2wsx
 //? KONTO ADMINA DO TESTÓW
-//! TODO `/cloud` route for user / admin dashboard <<< FIRST PRIORITY
-// - DONE -  added /cloud/user, /cloud/admin
-// TODO route for block / unblock user UPDATE `/admin/block/:id` { blocked: boolean } :id = user id
-// TODO route for change user space UPDATE `/admin/space/:id` { space: number } :id = user id
-// - DONE /admin/update/:id to update fields like isBlocked and maxUploadSize (space) etc.
-// TODO route for delete user DELETE `/admin/delete/:id` :id = user id
-// - DONE /admin/delete/:id for deleting user
-// TODO logout route POST `/logout`
-// - DONE there is nothing to do on the server side to perform logout as sessions are not stored here, client should delete auth_token from cookies
+
 
 clientRoutes.get('/', (req, res) => {
   res.render('index.ejs');

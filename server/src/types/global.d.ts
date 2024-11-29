@@ -18,6 +18,7 @@ declare global {
   namespace Express {
     interface Request {
       jwtPayload?: CustomJwtPayload;
+      parentId: string;
     }
 
     interface User extends UserType {}

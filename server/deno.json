@@ -3,8 +3,8 @@
     "dev": "deno run --allow-all --env-file --watch src/main.ts"
   },
   "imports": {
-    "fs": "jsr:@std/fs@^1.0.6",
-    "path": "jsr:@std/path@^1.0.8",
+    "@std/fs": "jsr:@std/fs@^1.0.6",
+    "@std/path": "jsr:@std/path@^1.0.8",
     "@types/cors": "npm:@types/cors@^2.8.17",
     "@types/express": "npm:@types/express@^5.0.0",
     "@types/jsonwebtoken": "npm:@types/jsonwebtoken@^9.0.7",

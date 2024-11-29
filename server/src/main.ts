@@ -7,6 +7,7 @@ import { errorHandler } from './middlewares/handleErrors.ts';
 import path from 'node:path';
 import { clientRoutes } from './routes/clientRoutes/clientRoutes.ts';
 import './db/connection.ts';
+import { fileRoutes } from './routes/api/fileRoutes.ts';
 
 const PORT = Deno.env.get('PORT') || 3000;
 const app = express();
@@ -23,6 +24,7 @@ app.set('views', path.join(Deno.cwd(), 'public/views'));
 app.use(express.static(path.join(Deno.cwd(), 'public')));
 
 app.use(userRoutes);
+app.use(fileRoutes);
 app.use(clientRoutes);
 app.use(errorHandler);
 

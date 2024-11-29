@@ -1,60 +1,73 @@
 // @deno-types="@types/multer"
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
+import * as path from '@std/path';
+import * as fs from '@std/fs';
+import { resolvePath } from '../../utils/resolvePath.ts';
 
 const DISK_PATH = Deno.env.get('DISK_PATH');
 
 // Function to create a folder for each user if it doesn't exist
-const createUserRootFolder = (userId: string) => {
+const resolveDestination = async (userId: string, parentId: string) => {
   if (!DISK_PATH) {
     throw new Error('DISK_PATH not found in environment variables');
   }
 
-  const dataPath = path.resolve(DISK_PATH, userId);
-
-  if (!fs.existsSync(dataPath)) {
-    fs.mkdirSync(dataPath, { recursive: true });
+  const dataPath = path.resolve(
+    DISK_PATH,
+    userId,
+    await resolvePath(userId, parentId)
+  );
+  try {
+    await Deno.mkdir(dataPath, { recursive: true });
+  } catch (e: any) {
+    if (e.name !== 'AlreadyExists') {
+      throw e;
+    }
   }
 
   return dataPath;
 };
 
-// const fileFilter = (
-//   req: Request,
-//   file: Express.Multer.File,
-//   cb: multer.FileFilterCallback
-// ) => {
-//   const ext = path.extname(file.originalname);
-//   if (!ACCEPTED_FILES_EXT.includes(ext)) {
-//     return cb(new AppError('Niedozwolony format pliku', 400));
-//   }
-//   cb(null, true);
-// };
-
 // Multer storage configuration
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: async (req, file, cb) => {
     if (!req.user) {
       throw new Error('User not found in request object');
     }
-    const user = req.user;
-    const p = path.join('uploads', user.id);
 
-    // Set the destination to the companyFolder folder
-    cb(null, userRootFolder);
+    const resolvedPath = await resolveDestination(req.user.id, req.parentId);
+    console.log(resolvePath);
+    cb(null, resolvedPath);
   },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
+
+  filename: async (req, file, cb) => {
+    if (!req.user) {
+      throw new Error('User not found in request object');
+    }
+
+    const resolvedPath = await resolveDestination(req.user.id, req.parentId);
+    let filename = file.originalname;
+    let filePath = path.join(resolvedPath, filename);
+    let fileExists = await fs.exists(filePath);
+    let counter = 1;
+    console.log(filePath);
+
+    const fileExt = path.extname(filename);
+    const fileNameWithoutExt = path.basename(filename, fileExt);
+
+    while (fileExists) {
+      filename = `${fileNameWithoutExt}(${counter})${fileExt}`;
+      filePath = path.join(resolvedPath, filename);
+      fileExists = await fs.exists(filePath);
+      counter++;
+    }
+
+    cb(null, filename);
   },
 });
 
 const multerOptions = {
   storage: storage,
-  fileFilter: fileFilter,
-  limits: {
-    fieldSize: 1024 * 1024 * 25, // 25MB
-  },
 };
 
 // Setup Multer to use the custom storage

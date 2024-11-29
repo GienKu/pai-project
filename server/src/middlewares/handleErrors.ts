@@ -20,7 +20,6 @@ export const errorHandler = (
     return res.status(400).json({
       message: 'Validation Error',
       details: err.issues.map((issue) => ({
-        path: issue.path.join('.'),
         message: issue.message,
         validation: issue.validation,
       })),

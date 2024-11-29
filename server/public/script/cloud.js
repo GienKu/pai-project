@@ -93,11 +93,11 @@ const uploadFilesToServer = async (files) => {
     //* Create form data
     const formData = new FormData();
     for (const file of files) {
-      formData.append("files[]", file);
+      formData.append("files", file);
     }
     if (files.length === 0) return alert("Brak plików do przesłania");
     //* Send files to server
-    const res = await fetch("cloud/upload", {
+    const res = await fetch("api/cloud/upload", {
       method: "POST",
       body: formData,
     });
@@ -126,7 +126,7 @@ const addFileToList = (file) => {
   listItem.classList.add("files-list-item");
   const fileContent = document.createElement("ul");
   const convertedPath = file.path.replace(/\\/g, "/") || "";
-  if (file.type === "dir") {
+  if (file.type === "folder") {
     //* Create file name for directory
     listItem.classList.add("dir");
     listItem.dataset.path = convertedPath;
@@ -135,7 +135,7 @@ const addFileToList = (file) => {
   } else {
     //* Create file name for file
     const fileName = document.createElement("li");
-    fileName.innerHTML = `${file.name}.${file.type}`;
+    fileName.innerHTML = `${file.name}`;
     //* Create file size and date
     const fileSize = document.createElement("li");
     fileSize.innerHTML = `${file.size}MB`;
@@ -173,7 +173,7 @@ const addFileToList = (file) => {
 
 //! List files from server
 const listFiles = async () => {
-  const res = await fetch("cloud/files");
+  const res = await fetch("api/cloud/files/root");
   if (res.status === 200) {
     const files = await res.json();
     //* Add files to list
@@ -200,7 +200,7 @@ const deleteFile = () => {
       if (!confirmed) return;
       //* Get file id and delete file
       const fileId = e.target.dataset.id;
-      const res = await fetch(`cloud/delete/${fileId}`, {
+      const res = await fetch(`api/cloud/delete/${fileId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -226,7 +226,7 @@ const downloadFile = () => {
     newButton.addEventListener("click", async (e) => {
       //* Get file id and download file
       const fileId = e.target.dataset.id;
-      const res = await fetch(`cloud/download/${fileId}`);
+      const res = await fetch(`api/cloud/download/${fileId}`);
       //* Check if file was downloaded
       if (res.status === 200) {
         alert("Plik został pobrany");
@@ -250,7 +250,7 @@ const shareFile = () => {
       //* Get file id and share file
       const fileId = e.target.dataset.id;
       const path = e.target.dataset.path;
-      const res = await fetch(`cloud/share/${fileId}`, {
+      const res = await fetch(`api/cloud/share/${fileId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ path }),

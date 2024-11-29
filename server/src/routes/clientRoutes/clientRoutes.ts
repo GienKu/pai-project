@@ -30,45 +30,10 @@ clientRoutes.get('/', (req, res) => {
 // TODO ROUTE FOR SHARING FILES
 // cloud/share/:id {shareUri}
 
-clientRoutes.get('/cloud/files', auth(), async (req, res) => {
-  // TODO get files from database
-  // now lets use mockFiles till the File model will be present, and we can upload real files
 
-  const mockFiles: {
-    id: number;
-    name: string;
-    path: string;
-    size: string;
-    date: string;
-    type: string;
-  }[] = [
-      {
-        id: 1, //? _id from database
-        name: 'file1',
-        path: '/path/to/file1.pdf',
-        size: '1.24', //? in MB
-        date: '2021-03-01', //? Last modified date
-        type: 'pdf',
-      },
-      {
-        id: 2,
-        name: 'dir1',
-        path: '/path/to/dir1',
-        size: '0',
-        date: '2021-03-01',
-        type: 'dir',
-      },
-    ];
-
-  // sort files by type (dir first)
-  const mock = mockFiles.sort((a, b) => {
-    if (a.type === 'dir' && b.type !== 'dir') return -1;
-    if (a.type !== 'dir' && b.type === 'dir') return 1;
-    return 0;
-  });
-
-  res.status(200).send(mock);
-});
+// - get cloud/files moved to routes/api/fileRoutes and now it should be sent
+// with :parentId param - if :parentId == 'root' then root folder is returned
+// - check File model 
 
 clientRoutes.get('/cloud/user', auth(), async (req, res) => {
   //req.user should be always defined at this point, if not then there is a bug somewhere in the code

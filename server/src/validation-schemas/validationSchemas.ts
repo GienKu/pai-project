@@ -28,6 +28,25 @@ export const UpdateUserSchema = v.object({
   isBlocked: v.optional(v.boolean()),
 });
 
+// Regex for 24-character hex string (MongoDB ObjectId format)
+
+// Schema that allows either 'root' or a valid MongoDB-like ObjectId
+export const GetFilesSchema = v.union([
+  v.literal('root'),
+  v.pipe(
+    v.string(),
+    v.regex(
+      /^[0-9a-fA-F]{24}$/,
+      'Must be a valid 24-character hex string or "root"'
+    )
+  ),
+]);
+
+export const ObjectIdSchema = v.pipe(
+  v.string(),
+  v.regex(/^[0-9a-fA-F]{24}$/, 'Must be a valid 24-character hex string')
+);
+
 export type LoginData = v.InferOutput<typeof LoginSchema>;
 export type RegisterData = v.InferOutput<typeof RegisterSchema>;
 export type ResetPasswordData = v.InferOutput<typeof ResetPasswordSchema>;

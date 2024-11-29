@@ -3,9 +3,9 @@ import { Request, Response, NextFunction } from 'express';
 import File from '../../db/models/File.ts';
 import { AppError } from '../../errors/AppError.ts';
 import { parse as vParse } from 'valibot';
-import { ObjectIdSchema } from '../../validation-schemas/validationSchemas.ts';
+import {  ObjectIdSchema } from '../../validation-schemas/validationSchemas.ts';
 
-export const getFile = async (
+export const deleteFile = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -17,21 +17,21 @@ export const getFile = async (
     // check if id is in correct format
     const fileId = vParse(ObjectIdSchema, req.params.id);
 
-    const file = await File.findOne({
+    //delete from db
+    const file = await File.findOneAndDelete({
       userId: req.user.id,
       _id: fileId,
     }).exec();
 
+    
     if (!file) {
-      throw new AppError('Could not find the file', 404);
+        throw new AppError('Could not delete file', 400);
     }
+    
+    //delete from disk
+    await Deno.remove(file.path);
 
-    res.setHeader('Access-Control-Expose-Headers', 'Content-Disposition');
-    res.download(file.path, file.name, (err) => {
-      if (err) {
-        throw new AppError('Error occured while sending file', 500);
-      }
-    });
+    res.status(200).send('Deleted file of id:' + file.id);
   } catch (err) {
     next(err);
   }

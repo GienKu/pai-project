@@ -23,7 +23,7 @@ const createFolder = () => {
     const res = await fetch("api/cloud/directory", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: folderName }),
+      body: JSON.stringify({ name: folderName, parentId: "root" }),
     });
     if (res.status === 200) {
       //* Refresh files list

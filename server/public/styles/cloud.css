@@ -37,6 +37,48 @@ nav a {
   padding: 0.5em 1em;
   display: inline-block;
 }
+nav .progress-info {
+  width: 100%;
+  background-color: transparent;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1em;
+  overflow: hidden;
+}
+nav .progress-info span {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  color: rgb(var(--color-main));
+  font-size: 0.8em;
+  font-weight: 400;
+  z-index: 2;
+  text-shadow: 0 0 0.5em rgba(var(--color-secondary), 0.5);
+}
+nav .progress-info progress {
+  width: 100%;
+  height: 100%;
+  color: rgba(var(--color-accent), 0.5);
+  border: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  z-index: 1;
+}
+nav .progress-info progress::-webkit-progress-bar {
+  background-color: rgba(var(--color-accent), 0.25);
+}
+nav .progress-info progress::-webkit-progress-value {
+  background-color: rgba(var(--color-accent), 0.75);
+}
 
 main {
   background-color: rgba(var(--color-accent), 0.08);
@@ -106,9 +148,32 @@ main section .files {
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;
   width: 60%;
   height: 100%;
   background: radial-gradient(circle, rgba(var(--color-accent), 0.05), rgba(var(--color-main), 0.5));
+}
+main section .files .create-folder {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  padding: 1em;
+  background-color: rgba(var(--color-accent), 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
+  transition: transform 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+main section .files .create-folder:hover {
+  transform: scale(1.1);
+}
+main section .files .create-folder svg {
+  stroke: rgb(var(--color-main));
+  width: 2.5em;
+  height: 2.5em;
 }
 main section .files-list {
   width: 100%;

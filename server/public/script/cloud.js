@@ -4,11 +4,37 @@ document.addEventListener("DOMContentLoaded", async function () {
   try {
     await listFiles();
     uploadFile();
+    createFolder();
     logout();
   } catch (e) {
     console.error(e);
   }
 });
+
+//! Create folder
+const createFolder = () => {
+  //* Get create folder button
+  const createFolderBtn = document.querySelector(".create-folder");
+  if (!createFolderBtn) return;
+  //* Add event listener to create folder button
+  createFolderBtn.addEventListener("click", async () => {
+    const folderName = prompt("Podaj nazwę folderu");
+    if (!folderName) return;
+    const res = await fetch("api/cloud/directory", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: folderName }),
+    });
+    if (res.status === 200) {
+      //* Refresh files list
+      alert("Folder został utworzony");
+      await listFiles();
+    } else {
+      //* Error creating folder
+      alert("Nie udało się utworzyć folderu");
+    }
+  });
+};
 
 //! Valid error message for add file
 const validError = (file, label, dropOver) => {
@@ -175,6 +201,12 @@ const addFileToList = (file) => {
 const listFiles = async () => {
   const res = await fetch("api/cloud/files/root");
   if (res.status === 200) {
+    //* Check if list exists
+    const list = document.querySelector(".files-list");
+    if (!list) return;
+    //* Clear list
+    list.innerHTML = "";
+    //* Get files
     const files = await res.json();
     //* Add files to list
     files.forEach((file) => addFileToList(file));
@@ -195,11 +227,11 @@ const deleteFile = () => {
     const newButton = btn.cloneNode(true);
     btn.replaceWith(newButton);
     newButton.addEventListener("click", async (e) => {
+      //* Get file id and delete file
+      const fileId = e.target.closest(".delete-btn").dataset.id;
       //* Confirm delete
       const confirmed = confirm("Chcesz usunąć plik?");
       if (!confirmed) return;
-      //* Get file id and delete file
-      const fileId = e.target.dataset.id;
       const res = await fetch(`api/cloud/delete/${fileId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -225,14 +257,35 @@ const downloadFile = () => {
     btn.replaceWith(newButton);
     newButton.addEventListener("click", async (e) => {
       //* Get file id and download file
-      const fileId = e.target.dataset.id;
+      const fileId = e.target.closest(".download-btn").dataset.id;
       const res = await fetch(`api/cloud/download/${fileId}`);
       //* Check if file was downloaded
       if (res.status === 200) {
-        alert("Plik został pobrany");
-        return;
+        try {
+          //* Get file name from response
+          const contentDisposition = res.headers.get("Content-Disposition");
+          let fileName = "";
+          if (contentDisposition && contentDisposition.includes("filename="))
+            fileName = contentDisposition.split("filename=")[1].replace(/"/g, "");
+          if (!fileName) return alert("Nie udało się pobrać nazwy pliku");
+          //* Get blob from response
+          const blob = await fetch(res.url).then((response) => response.blob());
+          //* Create URL and download file
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = fileName;
+          document.body.appendChild(a);
+          a.click();
+          //* Revoke URL
+          a.remove();
+          window.URL.revokeObjectURL(url);
+          alert("Plik został pobrany");
+        } catch (error) {
+          console.error("Wystąpił błąd podczas pobierania pliku:", error);
+          alert("Nie udało się pobrać pliku. Spróbuj ponownie.");
+        }
       }
-      alert("Nie udało się pobrać pliku");
     });
   });
 };
@@ -248,8 +301,8 @@ const shareFile = () => {
     btn.replaceWith(newButton);
     newButton.addEventListener("click", async (e) => {
       //* Get file id and share file
-      const fileId = e.target.dataset.id;
-      const path = e.target.dataset.path;
+      const fileId = e.target.closest(".share-btn").dataset.id;
+      const path = e.target.closest(".share-btn").dataset.path;
       const res = await fetch(`api/cloud/share/${fileId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

@@ -40,10 +40,12 @@ const changeSpace = () => {
     const newButton = btn.cloneNode(true);
     btn.replaceWith(newButton);
     newButton.addEventListener("click", async (e) => {
-      //TODO MODAL
-      return;
-      const userId = e.target.dataset.id;
-      const newSpace = e.target.dataset.space;
+      let newSpace = prompt("Podaj nową przestrzeń dla użytkownika (MB)");
+      if (!newSpace) return;
+      newSpace = parseInt(newSpace);
+      if (isNaN(newSpace)) return alert("Podana wartość nie jest liczbą");
+      newSpace = newSpace * 1024 * 1024; //? Convert MB to Bytes
+      const userId = e.target.closest(".space-btn").dataset.id;
       const res = await fetch(`/api/admin/update/${userId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

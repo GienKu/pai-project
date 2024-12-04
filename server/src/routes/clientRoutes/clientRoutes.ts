@@ -46,6 +46,8 @@ clientRoutes.get('/cloud/user', auth(), async (req, res) => {
     email: req.user?.email,
     role: req.user?.role,
     maxUploadSize: req.user?.maxUploadSize,
+    storageLimit: req.user?.storageLimit,
+    usedStorage: req.user?.usedStorage,
   };
 
   res.render('cloud.ejs', {

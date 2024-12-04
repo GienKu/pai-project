@@ -66,6 +66,18 @@
   <body>
     <nav>
       <a href="" class="logout-button">Wyloguj</a>
+      <% if (user.role == 1) { %>
+      <div class="progress-info">
+        <span class="progress-info-text"
+          ><%= (user.usedStorage / 1024 / 1024).toFixed(2) %> MB / <%= (user.storageLimit / 1024 /
+          1024).toFixed(2) %> MB</span
+        >
+        <progress
+          class="progress"
+          value="<%= ((user.usedStorage / 1024 / 1024).toFixed(2) * 100 / (user.storageLimit / 1024 / 1024).toFixed(2)).toFixed(2) %>"
+          max="100"></progress>
+      </div>
+      <% } %>
     </nav>
     <% if (user.role == 1) { %>
     <main>
@@ -82,6 +94,17 @@
         </div>
         <div class="files without-info">
           <ul class="files-list"></ul>
+          <button class="create-folder">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
         </div>
         <div class="file_info">
           <ul>
@@ -137,7 +160,10 @@
                 </svg>
               </li>
               <li>
-                <span><%= user.usedStorage %> B / <%= user.storageLimit %> B</span>
+                <span
+                  ><%= (user.usedStorage / 1024 / 1024).toFixed(4) %> MB / <%= (user.storageLimit /
+                  1024 / 1024).toFixed(4) %> MB
+                </span>
                 <svg
                   class="space-btn"
                   data-id="<%= user.id %>"

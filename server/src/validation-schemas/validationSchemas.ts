@@ -47,6 +47,20 @@ export const ObjectIdSchema = v.pipe(
   v.regex(/^[0-9a-fA-F]{24}$/, 'Must be a valid 24-character hex string')
 );
 
+export const CreateFolderSchema = v.object({
+  name: v.pipe(v.string(), v.minLength(1)),
+  parentId: v.union([
+    v.literal('root'),
+    v.pipe(
+      v.string(),
+      v.regex(
+        /^[0-9a-fA-F]{24}$/,
+        'Must be a valid 24-character hex string or "root"'
+      )
+    ),
+  ]),
+});
+
 export type LoginData = v.InferOutput<typeof LoginSchema>;
 export type RegisterData = v.InferOutput<typeof RegisterSchema>;
 export type ResetPasswordData = v.InferOutput<typeof ResetPasswordSchema>;

@@ -3,7 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import File from '../../db/models/File.ts';
 import { AppError } from '../../errors/AppError.ts';
 import { parse as vParse } from 'valibot';
-import {  ObjectIdSchema } from '../../validation-schemas/validationSchemas.ts';
+import { ObjectIdSchema } from '../../validation-schemas/validationSchemas.ts';
+import User from '../../db/models/User.ts';
 
 export const deleteFile = async (
   req: Request,
@@ -23,13 +24,17 @@ export const deleteFile = async (
       _id: fileId,
     }).exec();
 
-    
     if (!file) {
-        throw new AppError('Could not delete file', 400);
+      throw new AppError('Could not delete file', 400);
     }
-    
+
     //delete from disk
     await Deno.remove(file.path);
+
+    // update used storage
+    await User.findByIdAndUpdate(req.user.id, {
+      usedStorage: req.user.usedStorage - file.size,
+    });
 
     res.status(200).send('Deleted file of id:' + file.id);
   } catch (err) {

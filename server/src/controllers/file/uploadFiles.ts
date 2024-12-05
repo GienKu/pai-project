@@ -4,6 +4,8 @@ import { multerOnErrorCleanup } from '../../utils/multerOnErrorCleanup.ts';
 import File from '../../db/models/File.ts';
 import { upload } from '../../config/multer/multer.ts';
 import * as path from '@std/path';
+import { AppError } from '../../errors/AppError.ts';
+import User from '../../db/models/User.ts';
 
 /*
  *  Files upload controller
@@ -51,6 +53,20 @@ export const uploadFiles = async (
           })
         ).save();
       }
+      
+      //sum file sizes
+      const filesInBytes = files.reduce(
+        (acc, file) => acc + file.size,
+        0
+      );
+
+      if (filesInBytes + req.user.usedStorage > req.user.storageLimit) {
+        throw new AppError('User space limit exceeded... aborting upload', 400);
+      }
+
+      await User.findByIdAndUpdate(req.user.id, {
+        usedStorage: req.user.usedStorage + filesInBytes,
+      }).exec();
 
       res.status(200).send('Files uploaded successfully');
     } catch (error: any) {

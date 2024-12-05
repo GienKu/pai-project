@@ -13,12 +13,20 @@ export async function resolvePath(
   const folderMap = new Map<string, FileType>();
   folders.forEach((folder) => folderMap.set(folder.id, folder));
 
+  console.log(parentId)
+console.log(folderMap)
   // Function to build the path recursively
-  const buildPath = (parntId: string | null): string => {
+  const buildPath = (parentId: string | null): string => {
     if (parentId === null) return '';
+    
     const folder = folderMap.get(parentId);
     if (!folder) return '';
-    return path.join(buildPath(folder.parentId?.toString() || null) + folder.name);
+    
+    // console.log(folder.parentId.toString())
+    return path.join(
+      buildPath(folder.parentId ? folder.parentId.toString() : null),
+      folder.name
+    );
   };
 
   // Build the path starting from the given parentId

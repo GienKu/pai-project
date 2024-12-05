@@ -19,4 +19,4 @@ fileRoutes.get('/api/share/:id', auth([1]));
 
 fileRoutes.get('/api/cloud/files/:parentId', auth(), getFilesInfo);
 
-fileRoutes.get('/api/cloud/directory', auth([1]), createFolder);
+fileRoutes.post('/api/cloud/directory', auth([1]), createFolder);

@@ -25,7 +25,7 @@ export const auth = (rolesWithAccess: Role[] = []) => {
         const hasRole =
           rolesWithAccess.length === 0 || rolesWithAccess.includes(user.role);
 
-        if (!hasRole) {
+        if (!hasRole || user.isBlocked) {
           return res.status(403).json({ message: 'Forbidden' });
         }
 

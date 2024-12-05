@@ -2,17 +2,35 @@ import { logout } from "./logout.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    await listFiles();
-    uploadFile();
-    createFolder();
+    const path = sessionStorage.getItem("path") || "root";
+    await listFiles(path);
+    homeButton();
+    uploadFile(path);
+    createFolder(path);
     logout();
   } catch (e) {
+    sessionStorage.removeItem("path");
+    location.href = `/cloud/user`;
     console.error(e);
   }
 });
 
+//! Home Button
+const homeButton = () => {
+  //* Get the home button
+  const homeBtn = document.querySelector(".home-button");
+  if (!homeBtn) return;
+  homeBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    //* Remove the path from the sessionStorage
+    sessionStorage.removeItem("path");
+    //* Redirect to the home page
+    await listFiles();
+  });
+};
+
 //! Create folder
-const createFolder = () => {
+const createFolder = (path) => {
   //* Get create folder button
   const createFolderBtn = document.querySelector(".create-folder");
   if (!createFolderBtn) return;
@@ -76,7 +94,7 @@ const handleFile = (fileInput, label, dropOver) => {
 };
 
 //! Upload File client
-const uploadFile = () => {
+const uploadFile = (path) => {
   //* Check if drop over area exists
   const dropOver = document.querySelector(".info-upload");
   const fileInput = document.getElementById("file");
@@ -157,6 +175,15 @@ const addFileToList = (file) => {
     listItem.classList.add("dir");
     listItem.dataset.path = convertedPath;
     fileContent.innerHTML = `<li>${file.name}</li>`;
+    //* Create file buttons
+    const fileButtons = document.createElement("li");
+    fileButtons.classList.add("dir-buttons");
+    const buttonDelete = document.createElement("button");
+    buttonDelete.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"> <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>`;
+    buttonDelete.dataset.id = file.id;
+    buttonDelete.classList.add("delete-btn");
+    fileButtons.appendChild(buttonDelete);
+    fileContent.appendChild(fileButtons);
     listItem.appendChild(fileContent);
   } else {
     //* Create file name for file
@@ -198,8 +225,8 @@ const addFileToList = (file) => {
 };
 
 //! List files from server
-const listFiles = async () => {
-  const res = await fetch("api/cloud/files/root");
+const listFiles = async (path = "root") => {
+  const res = await fetch(`api/cloud/files/${path}`);
   if (res.status === 200) {
     //* Check if list exists
     const list = document.querySelector(".files-list");
@@ -214,7 +241,27 @@ const listFiles = async () => {
     deleteFile();
     downloadFile();
     shareFile();
+    changeDirectory();
   }
+};
+
+//! Change directory
+const changeDirectory = () => {
+  //* Get all directories
+  const dirs = document.querySelectorAll(".files-list-item.dir");
+  if (!dirs || dirs.length <= 0) return;
+  dirs.forEach((dir) => {
+    const deleteBtn = dir.querySelector(".delete-btn");
+    dir.addEventListener("click", async (e) => {
+      if (e.target === deleteBtn || e.target === deleteBtn.children[0]) return;
+      //* Get directory path
+      const path = e.target.closest(".files-list-item.dir").dataset.path;
+      //* Save to session storage
+      sessionStorage.setItem("path", path);
+      //* List files in directory
+      await listFiles(path);
+    });
+  });
 };
 
 //! Delete file

@@ -65,6 +65,9 @@
   </head>
   <body>
     <nav>
+      <% if (user.role == 1) { %>
+      <a href="" class="home-button">Home</a>
+      <% } %>
       <a href="" class="logout-button">Wyloguj</a>
       <% if (user.role == 1) { %>
       <div class="progress-info">

@@ -212,6 +212,9 @@ main section .files-list-item ul li {
   width: 100%;
   padding: 1em;
 }
+main section .files-list-item ul li.dir-buttons {
+  justify-content: flex-end;
+}
 main section .files-list-item ul li button {
   background-color: rgba(var(--color-accent), 0.5);
   color: rgb(var(--color-main));

@@ -209,6 +209,9 @@ main {
               align-items: center;
               width: 100%;
               padding: 1em;
+              &.dir-buttons {
+                justify-content: flex-end;
+              }
               button {
                 background-color: rgba(var(--color-accent), 0.5);
                 color: rgb(var(--color-main));

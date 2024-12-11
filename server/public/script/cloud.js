@@ -24,6 +24,7 @@ const homeButton = () => {
     e.preventDefault();
     //* Remove the path from the sessionStorage
     sessionStorage.removeItem("path");
+    sessionStorage.removeItem("id");
     //* Redirect to the home page
     await listFiles();
   });
@@ -37,11 +38,15 @@ const createFolder = (path) => {
   //* Add event listener to create folder button
   createFolderBtn.addEventListener("click", async () => {
     const folderName = prompt("Podaj nazwę folderu");
+    const parentId = sessionStorage.getItem("id") ?? "root";
     if (!folderName) return;
     const res = await fetch("api/cloud/directory", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: folderName, parentId: "root" }),
+      body: JSON.stringify({
+        name: folderName,
+        parentId,
+      }),
     });
     if (res.status === 200) {
       //* Refresh files list
@@ -139,6 +144,7 @@ const uploadFilesToServer = async (files) => {
     for (const file of files) {
       formData.append("files", file);
     }
+    formData.append("parentId", sessionStorage.getItem("id") ?? "root");
     if (files.length === 0) return alert("Brak plików do przesłania");
     //* Send files to server
     const res = await fetch("api/cloud/upload", {
@@ -174,6 +180,7 @@ const addFileToList = (file) => {
     //* Create file name for directory
     listItem.classList.add("dir");
     listItem.dataset.path = convertedPath;
+    listItem.dataset.id = file.id;
     fileContent.innerHTML = `<li>${file.name}</li>`;
     //* Create file buttons
     const fileButtons = document.createElement("li");
@@ -226,7 +233,9 @@ const addFileToList = (file) => {
 
 //! List files from server
 const listFiles = async (path = "root") => {
-  const res = await fetch(`api/cloud/files/${path}`);
+  const parentId = sessionStorage.getItem("id") ?? "root";
+
+  const res = await fetch(`api/cloud/files/${parentId}`);
   if (res.status === 200) {
     //* Check if list exists
     const list = document.querySelector(".files-list");
@@ -254,12 +263,12 @@ const changeDirectory = () => {
     const deleteBtn = dir.querySelector(".delete-btn");
     dir.addEventListener("click", async (e) => {
       if (e.target === deleteBtn || e.target === deleteBtn.children[0]) return;
-      //* Get directory path
-      const path = e.target.closest(".files-list-item.dir").dataset.path;
+      //* Get directory id
+      const id = e.target.closest(".files-list-item.dir").dataset.id;
       //* Save to session storage
-      sessionStorage.setItem("path", path);
+      sessionStorage.setItem("id", id);
       //* List files in directory
-      await listFiles(path);
+      await listFiles(id);
     });
   });
 };

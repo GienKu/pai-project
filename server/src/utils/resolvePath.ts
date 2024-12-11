@@ -12,9 +12,6 @@ export async function resolvePath(
   // Create a map for quick lookup
   const folderMap = new Map<string, FileType>();
   folders.forEach((folder) => folderMap.set(folder.id, folder));
-
-  console.log(parentId)
-console.log(folderMap)
   // Function to build the path recursively
   const buildPath = (parentId: string | null): string => {
     if (parentId === null) return '';
@@ -22,7 +19,6 @@ console.log(folderMap)
     const folder = folderMap.get(parentId);
     if (!folder) return '';
     
-    // console.log(folder.parentId.toString())
     return path.join(
       buildPath(folder.parentId ? folder.parentId.toString() : null),
       folder.name

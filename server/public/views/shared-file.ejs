@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared File</title>
+</head>
+<body>
+    <h1>File Information</h1>
+    <p><strong>Name:</strong> <%= file.name %></p>
+    <p><strong>Size:</strong> <%= file.size %> bytes</p>
+    <a href="<%= 'data:application/octet-stream;base64,' + file.fileBlob %>" download="<%= file.name %>">Download File</a>
+</body>
+</html>

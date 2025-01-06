@@ -103,6 +103,9 @@ main section {
   overflow: hidden;
   overflow-y: auto;
 }
+main section.shared {
+  border-radius: 2.5em;
+}
 main section .info {
   display: flex;
   justify-content: flex-start;
@@ -153,6 +156,24 @@ main section .files {
   height: 100%;
   background: radial-gradient(circle, rgba(var(--color-accent), 0.05), rgba(var(--color-main), 0.5));
 }
+main section .files .path {
+  width: 100%;
+  padding: 0.25em 1em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+main section .files .path a {
+  color: rgb(var(--color-accent));
+  text-decoration: none;
+  padding: 0 0.1em;
+  cursor: pointer;
+  transition: color 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+main section .files .path a:hover {
+  text-decoration: none;
+  color: rgb(var(--color-secondary));
+}
 main section .files .create-folder {
   position: absolute;
   bottom: 1em;
@@ -194,6 +215,27 @@ main section .files-list-item.dir {
 }
 main section .files-list-item:hover {
   background-color: rgba(var(--color-accent), 0.01);
+}
+main section .files-list-item-shared {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: row;
+  position: relative;
+}
+main section .files-list-item-shared p {
+  width: auto;
+  padding: 1em;
+}
+main section .files-list-item-shared a {
+  position: absolute;
+  top: calc(50% - 8vw);
+}
+main section .files-list-item-shared svg {
+  stroke: rgb(var(--color-accent));
+  width: 8vw;
+  height: 8vw;
 }
 main section .files-list-item ul {
   width: 100%;

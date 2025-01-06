@@ -1,14 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared File</title>
-</head>
-<body>
-    <h1>File Information</h1>
-    <p><strong>Name:</strong> <%= file.name %></p>
-    <p><strong>Size:</strong> <%= file.size %> bytes</p>
-    <a href="<%= 'data:application/octet-stream;base64,' + file.fileBlob %>" download="<%= file.name %>">Download File</a>
-</body>
+  <head>
+    <title>Chmura PAI</title>
+    <base href="/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent" />
+    <meta name="theme-color" content="#00b6ed" />
+    <meta name="author" content="PSZ,KG,JS" />
+    <meta name="copyright" content="Chmura, PAI" />
+    <meta name="keywords" content="Chmura, PAI" />
+    <meta name="robots" content="nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="referrer" content="never" />
+    <meta http-equiv="expires" content="43200" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Chmura PAI" />
+    <meta name="title" content="Chmura PAI" />
+    <meta property="og:title" content="Chmura PAI" />
+    <meta property="twitter:title" content="Chmura PAI" />
+    <meta itemprop="name" content="Chmura PAI" />
+    <meta property="og:type" content="website" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="http://localhost:3000/" />
+    <meta property="twitter:url" content="http://localhost:3000/" />
+    <meta property="image" content="assets/banner.jpg" />
+    <meta property="og:image" content="assets/banner.jpg" />
+    <meta property="twitter:image" content="assets/banner.jpg" />
+    <meta name="description" content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="og:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      property="twitter:description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <meta
+      itemprop="description"
+      content="Strona do przechowywania danych na chmurze, projekt PAI" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png" />
+    <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="apple-mobile-web-app-title" content="Chmura PAI" />
+    <meta name="application-name" content="Chmura PAI" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png" />
+    <link id="canonical" rel="canonical" href="http://localhost:3000/" />
+    <meta name="browsermode" content="application" />
+    <link rel="preload" href="styles/main.css" as="style" onload="this.rel='stylesheet'" />
+    <link rel="stylesheet" type="text/css" href="styles/cloud.css" />
+  </head>
+  <body>
+    <main>
+      <h1 class="hidden-accessible">Cloud</h1>
+      <section class="shared">
+        <div class="files without-info">
+          <ul class="files-list">
+            <li class="files-list-item files-list-item-shared">
+              <p><strong>Name:</strong> <%= file.name %></p>
+              <p><strong>Size:</strong> <%= (file.size / 1024 / 1024).toFixed(2) %> MB</p>
+              <a
+                href="<%= 'data:application/octet-stream;base64,' + file.fileBlob %>"
+                download="<%= file.name %>"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>

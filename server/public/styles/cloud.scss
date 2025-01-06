@@ -101,6 +101,9 @@ main {
     flex-direction: row;
     overflow: hidden;
     overflow-y: auto;
+    &.shared {
+      border-radius: 2.5em;
+    }
     .info {
       display: flex;
       justify-content: flex-start;
@@ -154,6 +157,24 @@ main {
         rgba(var(--color-accent), 0.05),
         rgba(var(--color-main), 0.5)
       );
+      .path {
+        width: 100%;
+        padding: 0.25em 1em;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        a {
+          color: rgb(var(--color-accent));
+          text-decoration: none;
+          padding: 0 0.1em;
+          cursor: pointer;
+          transition: color 0.25s cubic-bezier(0.39, 0.575, 0.565, 1);
+          &:hover {
+            text-decoration: none;
+            color: rgb(var(--color-secondary));
+          }
+        }
+      }
       .create-folder {
         position: absolute;
         bottom: 1em;
@@ -193,6 +214,27 @@ main {
           }
           &:hover {
             background-color: rgba(var(--color-accent), 0.01);
+          }
+          &-shared {
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            flex-direction: row;
+            position: relative;
+            p {
+              width: auto;
+              padding: 1em;
+            }
+            a {
+              position: absolute;
+              top: calc(50% - 8vw);
+            }
+            svg {
+              stroke: rgb(var(--color-accent));
+              width: 8vw;
+              height: 8vw;
+            }
           }
           ul {
             width: 100%;

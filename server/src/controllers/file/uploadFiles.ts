@@ -8,16 +8,20 @@ import * as fs from '@std/fs';
 import { AppError } from '../../errors/AppError.ts';
 import User from '../../db/models/User.ts';
 
-/*
- *  Files upload controller
- *  Files are uploaded using multer middleware but it used inside the controller instead of route
- *  Files are saved to the disk and their info is saved to the database
- *  If any error occurs during the file upload process, all files are deleted from the disk
- *
- */
-
 const uploadArray = upload.array('files');
 
+/**
+ * Handles the upload of multiple files. This function uses a middleware to upload files to the disk,
+ * resolves the destination folder, and saves the file information to the database.
+ * It also checks for user storage limits and handles errors appropriately.
+ *
+ * @param req - The request object containing user information, files, and parentId.
+ * @param res - The response object used to send the status of the upload.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {Error} If there is an error during file upload or if user information is not found in the request.
+ * @throws {AppError} If the parentId is not provided or if the user exceeds their storage limit.
+ */
 export const uploadFiles = async (
   req: Request,
   res: Response,

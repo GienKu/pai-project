@@ -5,6 +5,19 @@ import User from '../../db/models/User.ts';
 import { parse as vParse } from 'valibot';
 import { UpdateUserSchema } from '../../validation-schemas/validationSchemas.ts';
 
+/**
+ * Updates a user's information based on the provided request body.
+ * This function currently supports blocking/unblocking a user and can be extended in the future.
+ * Assumes that the admin is authenticated and authorized to perform the block operation.
+ *
+ * @param req - The request object containing the user ID in the params and the fields to update in the body.
+ * @param res - The response object used to send the status code.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {AppError} If the user is not found.
+ *
+ * @returns {Promise<void>} Sends a 200 status code if the update is successful.
+ */
 export const updateUser = async (
   req: Request,
   res: Response,

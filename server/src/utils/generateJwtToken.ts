@@ -10,6 +10,17 @@ interface JwtClaims {
   exp?: string;
 }
 
+/**
+ * Generates a JSON Web Token (JWT) using the provided claims.
+ *
+ * @param {JwtClaims} claims - The claims to include in the JWT.
+ * @param {string} claims.id - The unique identifier for the subject of the token.
+ * @param {string} claims.role - The role of the subject.
+ * @param {string} claims.tokenType - The type of the token.
+ * @param {string} [claims.exp] - The expiration time of the token. Defaults to '1h' if not provided.
+ * @returns {string} The generated JWT.
+ * @throws {Error} If the JWT_PRIV_KEY is not defined.
+ */
 export const generateJwtToken = ({ id, role, tokenType, exp }: JwtClaims) => {
   if (!JWT_PRIV_KEY) {
     throw new Error('JWT_PRIV_KEY is not defined');

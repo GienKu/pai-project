@@ -15,7 +15,23 @@ interface IUser extends Document {
   isBlocked: boolean;
 }
 
-const UserSchema: Schema<IUser> = new Schema({
+/**
+ * UserSchema defines the structure of the User document in the database.
+ * 
+ * Properties:
+ * - `username` (String): The username of the user. This field is required.
+ * - `email` (String): The email address of the user. This field is required and must be unique.
+ * - `password` (String): The password of the user. This field is required.
+ * - `role` (Number): The role of the user. This field is required and defaults to 0.
+ * - `storageLimit` (Number): The storage limit for the user in bytes. This field is required and defaults to 100MB.
+ * - `usedStorage` (Number): The amount of storage used by the user in bytes. This field is required and defaults to 0.
+ * - `maxUploadSize` (Number): The maximum upload size for the user in MB. This field is required and defaults to 100MB.
+ * - `verifiedAt` (Date): The date when the user was verified. This field is optional and defaults to null.
+ * - `createdAt` (Date): The date when the user was created. This field defaults to the current date and time.
+ * - `updatedAt` (Date): The date when the user was last updated. This field defaults to the current date and time.
+ * - `isBlocked` (Boolean): Indicates whether the user is blocked. This field is required and defaults to false.
+ */
+export const UserSchema: Schema<IUser> = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },

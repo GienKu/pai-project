@@ -21,6 +21,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+/**
+ * Sends a password reset link to the specified user's email address.
+ *
+ * @param userEmail - The email address of the user to send the reset link to.
+ * @param link - The password reset link to be included in the email.
+ * @returns A promise that resolves to the information about the sent email.
+ * @throws {AppError} If there is an error sending the email.
+ */
 export const sendResetPasswordLink = async (
   userEmail: string,
   link: string
@@ -42,6 +50,15 @@ export const sendResetPasswordLink = async (
     throw new AppError('Error sending email', 500);
   }
 };
+
+/**
+ * Sends an email confirmation link to the specified user email.
+ *
+ * @param userEmail - The email address of the user to send the confirmation link to.
+ * @param link - The confirmation link to be included in the email.
+ * @returns A promise that resolves to the information about the sent email.
+ * @throws {AppError} If there is an error sending the email.
+ */
 export const sendEmailConfirmationLink = async (
   userEmail: string,
   link: string

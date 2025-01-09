@@ -5,6 +5,22 @@ import User from '../../db/models/User.ts';
 
 const BASE_URL = Deno.env.get('BASE_URL');
 
+/**
+ * Verifies the password reset token and redirects the user to the appropriate page.
+ *
+ * @param req - The request object, which should contain the JWT payload.
+ * @param res - The response object used to send the response.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws Will throw an error if the JWT payload is not attached to the request.
+ * @throws Will throw an error if the user is not found in the database.
+ *
+ * @remarks
+ * This function expects the JWT payload to be attached to the request object by a preceding middleware.
+ * If the user is found, a new JWT token for setting up a new password is generated and set as an HTTP-only cookie.
+ * The user is then redirected to the password reset page.
+ * If the user is not found, the user is redirected to a "not verified" page.
+ */
 export const verifyPasswordResetToken = async (
   req: Request,
   res: Response,

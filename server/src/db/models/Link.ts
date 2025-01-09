@@ -9,7 +9,17 @@ interface ILink extends Document {
   createdAt: Date;
 }
 
-const LinkSchema: Schema<ILink> = new Schema({
+/**
+ * Schema definition for the Link model.
+ * 
+ * @typedef {Object} ILink
+ * @property {ObjectId} fileId - The ID of the file associated with the link. This field is required.
+ * @property {ObjectId} generatedById - The ID of the user who generated the link. This field is required.
+ * @property {string} accessLevel - The access level of the link. This field is required.
+ * @property {Date} expirationAt - The expiration date and time of the link. This field is required.
+ * @property {Date} createdAt - The creation date and time of the link. Defaults to the current date and time.
+ */
+export const LinkSchema: Schema<ILink> = new Schema({
   fileId: { type: Schema.Types.ObjectId, required: true },
   generatedById: { type: Schema.Types.ObjectId, required: true },
   accessLevel: { type: String, required: true },

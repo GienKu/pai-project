@@ -10,6 +10,19 @@ import User from '../../db/models/User.ts';
 const ROLE_ADMIN = Number(Deno.env.get('ROLE_ADMIN'));
 const ROLE_USER = Number(Deno.env.get('ROLE_USER'));
 
+/**
+ * Controller for handling user login requests.
+ *
+ * @param req - The request object containing user login details.
+ * @param res - The response object used to send back the appropriate response.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {Error} If required environment variables are missing.
+ * @throws {AppError} If the email or password is not valid.
+ * @throws {AppError} If the user role is not valid.
+ *
+ * @returns Redirects the user to the appropriate dashboard based on their role.
+ */
 export const userLoginController = async (
   req: Request,
   res: Response,

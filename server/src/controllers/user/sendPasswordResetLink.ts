@@ -13,6 +13,17 @@ if (!BASE_URL) {
   throw new Error('BASE_URL is not defined');
 }
 
+/**
+ * Sends a password reset link to the user's email.
+ *
+ * @param req - The request object containing the user's email in the body.
+ * @param res - The response object used to send the status and message.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {AppError} If the user with the provided email does not exist.
+ *
+ * @returns {Promise<void>} A promise that resolves when the password reset link is sent.
+ */
 export const sendPasswordResetLink = async (
   req: Request,
   res: Response,

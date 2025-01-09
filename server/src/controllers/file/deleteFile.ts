@@ -7,6 +7,23 @@ import { ObjectIdSchema } from '../../validation-schemas/validationSchemas.ts';
 import User from '../../db/models/User.ts';
 import { deleteFolderRec } from '../../utils/deleteFolderRec.ts';
 
+/**
+ * Deletes a file or folder for the authenticated user.
+ *
+ * @param req - The request object, containing user information and file ID.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ *
+ * @throws {Error} If the user is not defined.
+ * @throws {AppError} If the file is not found or could not be deleted.
+ *
+ * The function performs the following steps:
+ * 1. Validates the user and file ID.
+ * 2. Checks if the file exists in the database.
+ * 3. If the file is a folder, deletes it recursively from the database and disk, and updates the user's used storage.
+ * 4. If the file is a file, deletes it from the database and disk, and updates the user's used storage.
+ * 5. Sends a success response with the ID of the deleted file or folder.
+ */
 export const deleteFile = async (
   req: Request,
   res: Response,

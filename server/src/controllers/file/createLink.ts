@@ -8,6 +8,18 @@ import Link from '../../db/models/Link.ts';
 
 const BASE_URL = Deno.env.get('BASE_URL');
 
+/**
+ * Creates a shareable link for a file.
+ *
+ * @param req - The request object containing user and file information.
+ * @param res - The response object used to send the shareable link.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {Error} If the user or BASE_URL is not defined.
+ * @throws {AppError} If the file could not be found or the link could not be created.
+ *
+ * @returns {void} Sends a JSON response with the shareable link URI.
+ */
 export const createLink = async (
   req: Request,
   res: Response,

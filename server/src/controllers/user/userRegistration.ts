@@ -10,6 +10,26 @@ import { sendEmailConfirmationLink } from '../../config/nodemailer/nodemailer.ts
 
 const BASE_URL = Deno.env.get('BASE_URL');
 
+/**
+ * Handles user registration.
+ *
+ * This function performs the following steps:
+ * 1. Validates the request body against the `RegisterSchema`.
+ * 2. Checks if the email already exists in the database.
+ * 3. Creates a new user with the provided username, email, and hashed password.
+ * 4. Generates a JWT token for immediate login.
+ * 5. Generates a JWT token for email verification.
+ * 6. Sends an email confirmation link to the user's email.
+ * 7. Sets an HTTP-only cookie with the authentication token.
+ * 8. Redirects the user to the `/cloud/user` page.
+ *
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next middleware function.
+ *
+ * @throws Will throw an error if `BASE_URL` is not defined.
+ * @throws Will throw an error if the email already exists.
+ */
 export const userRegistration = async (
   req: Request,
   res: Response,

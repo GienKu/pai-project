@@ -11,6 +11,34 @@ import { verifyUserEmail } from '../../controllers/user/verifyUserEmail.ts';
 import { deleteUser } from '../../controllers/user/deleteUser.ts';
 import { updateUser } from '../../controllers/user/updateUser.ts';
 
+/**
+ * Defines the user-related routes for the application.
+ * 
+ * Routes:
+ * - POST /api/login: Authenticates a user and logs them in.
+ * - POST /api/register: Registers a new user.
+ * - PATCH /api/admin/update/:id: Updates user information for a specific user (admin only).
+ * - DELETE /api/admin/delete/:id: Deletes a specific user (admin only).
+ * - POST /api/logout: Logs out the current user and clears the authentication token.
+ * - GET /api/verify-email: Verifies a user's email address.
+ * - POST /api/send-password-reset-link: Sends a password reset link to the user's email.
+ * - GET /api/verify-password-reset-link: Verifies the password reset link.
+ * - PATCH /api/update-password: Updates the user's password.
+ * 
+ * Middleware:
+ * - `auth([2])`: Ensures the user is authenticated and has the required role (e.g., admin).
+ * - `linkAuth`: Ensures the link used for verification is valid.
+ * 
+ * Controllers:
+ * - `userLoginController`: Handles user login.
+ * - `userRegistration`: Handles user registration.
+ * - `updateUser`: Handles updating user information.
+ * - `deleteUser`: Handles deleting a user.
+ * - `verifyUserEmail`: Handles email verification.
+ * - `sendPasswordResetLink`: Handles sending password reset links.
+ * - `verifyPasswordResetToken`: Handles verifying password reset links.
+ * - `updateUserPassword`: Handles updating user passwords.
+ */
 export const userRoutes = express.Router();
 
 userRoutes.post('/api/login', userLoginController);

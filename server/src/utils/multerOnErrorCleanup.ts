@@ -1,8 +1,17 @@
 import { Request } from 'npm:express';
 import { exists } from 'jsr:@std/fs@^1.0.6/exists'; // Ensure correct import for @std/fs
 
-/*
- * This function cleans up uploaded files in case of an error.
+
+/**
+ * Cleans up uploaded files in case of an error during the request processing.
+ * 
+ * This function checks if there are any files uploaded in the request. If files are found,
+ * it attempts to delete each file from the filesystem. If an error occurs during the deletion
+ * of a file, it logs the error to the console.
+ * 
+ * @param req - The request object containing the uploaded files.
+ * 
+ * @returns A promise that resolves when the cleanup process is complete.
  */
 export const multerOnErrorCleanup = async (req: Request) => {
   if (req.files) {

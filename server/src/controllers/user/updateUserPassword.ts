@@ -5,6 +5,22 @@ import { NewPasswordSchema } from '../../validation-schemas/validationSchemas.ts
 import User from '../../db/models/User.ts';
 import { hashPassword } from '../../utils/passwordUtils.ts';
 
+/**
+ * Updates the user's password.
+ *
+ * This function is an Express middleware that updates the password of the authenticated user.
+ * It expects the user and jwtPayload to be attached to the request object by a preceding middleware.
+ * The jwtPayload must have a type of 'new-password' to proceed.
+ *
+ * @param req - The request object, which should contain the user and jwtPayload.
+ * @param res - The response object.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws {Error} If the user is not attached to the request object.
+ * @throws {AppError} If the jwtPayload type is not 'new-password'.
+ *
+ * @returns {Promise<void>} A promise that resolves to void.
+ */
 export const updateUserPassword = async (
   req: Request,
   res: Response,

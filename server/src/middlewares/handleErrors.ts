@@ -2,6 +2,19 @@ import { AppError } from '../errors/AppError.ts';
 import { Request, Response, NextFunction } from 'express';
 import * as v from 'valibot';
 
+/**
+ * Middleware to handle errors in the application.
+ *
+ * @param err - The error object that was thrown.
+ * @param req - The Express request object.
+ * @param res - The Express response object.
+ * @param next - The next middleware function in the stack.
+ *
+ * This middleware handles different types of errors:
+ * - Custom `AppError` instances, returning the appropriate status code and message.
+ * - `ValiError` instances from Valibot, returning a 400 status code with validation error details.
+ * - Logs all other errors to the console and returns a 500 status code with a generic message.
+ */
 export const errorHandler = (
   err: Error,
   req: Request,

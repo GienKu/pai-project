@@ -4,6 +4,18 @@ import passport, { AuthenticateCallback } from 'passport';
 
 const BASE_URL = Deno.env.get('BASE_URL');
 
+/**
+ * Middleware to handle link authentication using JWT.
+ * 
+ * This middleware uses Passport to authenticate requests based on a JWT
+ * provided in the URL. If authentication fails, the user is redirected
+ * to a "not verified" page. If authentication succeeds, the request is
+ * passed to the next middleware.
+ * 
+ * @param req - The HTTP request object.
+ * @param res - The HTTP response object.
+ * @param next - The next middleware function in the stack.
+ */
 export const linkAuth = (
   req: Request,
   res: Response,

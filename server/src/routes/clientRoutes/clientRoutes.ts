@@ -7,6 +7,29 @@ import Link from '../../db/models/Link.ts';
 import File from '../../db/models/File.ts';
 import { Buffer } from "node:buffer";
 
+/**
+ * Defines the client routes for the application.
+ * 
+ * Routes:
+ * - GET `/` - Renders the index page.
+ * - GET `/cloud/user` - Renders the cloud page for a user. Requires authentication.
+ * - GET `/cloud/admin` - Renders the cloud page for an admin. Requires authentication.
+ * - GET `/cloud/shared/:linkId` - Renders a shared file page based on the link ID.
+ * - GET `/not-verified` - Renders the not verified page.
+ * - GET `/unauthorized` - Renders the unauthorized page.
+ * - GET `/password-reset` - Placeholder for password reset page.
+ * - GET `*` - Renders the not found page for any undefined routes.
+ * 
+ * Middleware:
+ * - `auth` - Middleware to handle authentication.
+ * 
+ * Error Handling:
+ * - Throws `AppError` if the user is not defined in authenticated routes.
+ * 
+ * Environment Variables:
+ * - `ROLE_ADMIN` - Role ID for admin users.
+ * - `ROLE_USER` - Role ID for regular users.
+ */
 export const clientRoutes = express.Router();
 
 const ROLE_ADMIN = Number(Deno.env.get('ROLE_ADMIN'));

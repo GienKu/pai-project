@@ -5,6 +5,24 @@ import { AppError } from '../../errors/AppError.ts';
 import { parse as vParse} from 'valibot'
 import { GetFilesSchema } from "../../validation-schemas/validationSchemas.ts";
 
+/**
+ * Retrieves the file structure information for a given user and parent folder.
+ *
+ * @param req - The request object containing user information and parameters.
+ * @param res - The response object used to send the file structure information.
+ * @param next - The next middleware function in the stack.
+ *
+ * @throws Will throw an error if the user is not defined in the request.
+ *
+ * The function performs the following steps:
+ * 1. Checks if the user is defined in the request.
+ * 2. Validates the parentId parameter using the GetFilesSchema.
+ * 3. Determines the parentId to use for querying files.
+ * 4. Finds all files associated with the user and the specified parentId.
+ * 5. Maps the file information to a structured format.
+ * 6. Sorts the files, prioritizing folders over other file types.
+ * 7. Sends the mapped and sorted file information as a response.
+ */
 export const getFilesInfo = async (
   req: Request,
   res: Response,

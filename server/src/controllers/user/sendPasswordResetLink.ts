@@ -49,7 +49,7 @@ export const sendPasswordResetLink = async (
 
     await sendResetPasswordLink(user.email, verificationLink);
 
-    res.status(200).json({ message: 'Link sent' });
+    res.status(200).redirect('/');
   } catch (error: any) {
     next(error);
   }

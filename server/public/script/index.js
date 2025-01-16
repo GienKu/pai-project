@@ -112,8 +112,8 @@ const formFunction = (formClass, apiEndpoint, getRequestBody, onSuccessRedirect)
       }
       //* Redirect on success
       // res.redirect will set response.url so after successful login/registration user will be redirected
-      // window.location.href = onSuccessRedirect; 
-      window.location.href = response.url; 
+      // window.location.href = onSuccessRedirect;
+      window.location.href = response.url;
       return Promise.resolve();
     } catch (err) {
       console.error(err);
@@ -157,16 +157,11 @@ const registerFormFunction = () => {
 
 //! Reset password form validation
 const resetPasswordFormFunction = () => {
-  //TODO
-  return;
   formFunction(
     ".forgot-password",
-    "/api/resetpassword",
+    "/api/send-password-reset-link",
     (target) => ({
       email: target["forgot-password-email"].value,
-      password: target["forgot-password-password"].value,
-      repassword: target["forgot-password-password-repeat"].value,
-      code: target["forgot-password-code"].value.toUpperCase(),
     }),
     "/api/main"
   );

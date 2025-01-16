@@ -52,7 +52,7 @@ export const verifyUserEmail = async (
       sameSite: 'strict',
     });
 
-    res.redirect(`${BASE_URL}/cloud`);
+    res.redirect(`${BASE_URL}/cloud/user`);
   } catch (error: any) {
     next(error);
   }
